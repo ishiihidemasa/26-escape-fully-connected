@@ -1,0 +1,66 @@
+{
+    "name": "${localWorkspaceFolderBasename}",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
+    "forwardPorts": [
+        8888 // Port for Jupyter Notebook
+    ],
+    "remoteUser": "jovyan",
+    "workspaceMount": "src=${localWorkspaceFolder},target=/workdir,type=bind",
+    "workspaceFolder": "/workdir",
+    "shutdownAction": "stopContainer",
+    //"postCreateCommand": "./.devcontainer/postCreateCommand.sh",
+    "containerEnv": {
+        "JULIA_PROJECT": "/workdir"
+    },
+
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "julialang.language-julia",
+                "0h7z.vscode-julia-format",
+                "ms-toolsai.jupyter",
+                "donjayamanne.vscode-jupytext",
+                "ms-python.isort",
+                "REditorSupport.r",
+                "RDebugger.r-debugger",
+                "ms-python.python",
+                "janisdd.vscode-edit-csv",
+                "mechatroner.rainbow-csv",
+                // "GitHub.copilot"
+            ],
+            "settings": {
+                "terminal.integrated.shell.linux": "/bin/bash",
+                "workbench.editorAssociations": {
+                    "*.ipynb": "jupyter-notebook"
+                },
+                "jupyter.allowLocalServer": true,
+                "jupyter.jupyterServerType": "local",  // Ensures Jupyter uses local server
+				// enable linting using pylint
+				"python.linting.enabled": true,
+				"python.linting.lintOnSave": true,
+				
+				// Pylance
+				"python.languageServer": "Pylance",
+				// enable auto completion for functions
+				"python.analysis.completeFunctionParens": true,
+		
+				// settings for black
+				//#"python.formatting.provider": "black",
+				//"python.formatting.blackArgs": [
+				//	"--line-length=79"  // 79 or 120?
+				//],
+				//"[python]": {
+					//"editor.defaultFormatter": "ms-python.black-formatter",
+					//"editor.codeActionsOnSave": {
+						// run isort upon saving a file
+						//"source.organizeImports": true
+					//},
+					//"editor.formatOnSave": true
+				//}
+			}
+        }
+    }
+}
